@@ -1,0 +1,1910 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "description": "API documentation for managing Akun resources",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/akun": {
+            "get": {
+                "tags": [
+                    "Akun"
+                ],
+                "summary": "Get list of Akun",
+                "description": "Display a listing of Akun.",
+                "operationId": "beec609b9ae51daef6f12af8d7c611ea",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Akun"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Akun"
+                ],
+                "summary": "Create a new Akun",
+                "description": "Store a new Akun.",
+                "operationId": "8216423707756d252a4f28e2f0ebbf89",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "kode": {
+                                        "type": "integer",
+                                        "example": 123
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Akun created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Akun"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/akun/{id}": {
+            "get": {
+                "tags": [
+                    "Akun"
+                ],
+                "summary": "Get an Akun by ID",
+                "description": "Display an Akun by ID.",
+                "operationId": "507399a2731dcaf28f95368a8f61521f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Akun"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Akun not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Akun"
+                ],
+                "summary": "Update an Akun by ID",
+                "description": "Update an existing Akun.",
+                "operationId": "55cee838ed1ec965ad407e7fff8b5f94",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Jane Doe"
+                                    },
+                                    "kode": {
+                                        "type": "integer",
+                                        "example": 456
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Akun updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Akun"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Akun not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Akun"
+                ],
+                "summary": "Delete an Akun by ID",
+                "description": "Delete an Akun.",
+                "operationId": "5016442ca0c02aa655f562e97a01a6f8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Akun deleted"
+                    },
+                    "404": {
+                        "description": "Akun not found"
+                    }
+                }
+            }
+        },
+        "/api/data_akun": {
+            "get": {
+                "tags": [
+                    "DataAkun"
+                ],
+                "summary": "Get list of DataAkun",
+                "description": "Display a listing of DataAkun.",
+                "operationId": "51a17f8a35fd8664b90191d6f4371a1d",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DataAkun"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "DataAkun"
+                ],
+                "summary": "Create a new DataAkun",
+                "description": "Store a new DataAkun.",
+                "operationId": "42f086e8a2eca04493b5dc285ce1930b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "id_sub_akun": {
+                                        "type": "string",
+                                        "example": "akun_123"
+                                    },
+                                    "debit": {
+                                        "type": "integer",
+                                        "example": "20000"
+                                    },
+                                    "kredit": {
+                                        "type": "integer",
+                                        "example": "20000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "DataAkun created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataAkun"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/data_akun/{id}": {
+            "get": {
+                "tags": [
+                    "DataAkun"
+                ],
+                "summary": "Get a DataAkun by ID",
+                "description": "Display a DataAkun by ID.",
+                "operationId": "db1144ac819c716e1c8452a58865acf7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataAkun"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "DataAkun not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "DataAkun"
+                ],
+                "summary": "Update a DataAkun by ID",
+                "description": "Update an existing DataAkun.",
+                "operationId": "8775638f946c9d40adbb66bb025c32aa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Jane Doe"
+                                    },
+                                    "id_sub_akun": {
+                                        "type": "string",
+                                        "example": "akun_456"
+                                    },
+                                    "debit": {
+                                        "type": "integer",
+                                        "example": "2000"
+                                    },
+                                    "kredit": {
+                                        "type": "integer",
+                                        "example": "2000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "DataAkun updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataAkun"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "DataAkun not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "DataAkun"
+                ],
+                "summary": "Delete a DataAkun by ID",
+                "description": "Delete a DataAkun.",
+                "operationId": "593119dff1d1fc49551c70ab44548adf",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "DataAkun deleted"
+                    },
+                    "404": {
+                        "description": "DataAkun not found"
+                    }
+                }
+            }
+        },
+        "/api/jurnal": {
+            "get": {
+                "tags": [
+                    "Jurnal"
+                ],
+                "summary": "Get list of Jurnal",
+                "description": "Display a listing of Jurnal.",
+                "operationId": "06263feb2b1ffab1730e827361e8d30b",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Jurnal"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Jurnal"
+                ],
+                "summary": "Create a new Jurnal",
+                "description": "Store a new Jurnal.",
+                "operationId": "b459aa40879fbb1c3a660b2ea76eb440",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_tipe_jurnal": {
+                                        "type": "string",
+                                        "example": "tipe_123"
+                                    },
+                                    "tanggal": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-01-01 10:00:00"
+                                    },
+                                    "nama_transaksi": {
+                                        "type": "string",
+                                        "example": "Purchase Supplies"
+                                    },
+                                    "nominal": {
+                                        "type": "integer",
+                                        "example": 1000
+                                    },
+                                    "id_debit": {
+                                        "type": "string",
+                                        "example": "debit_123"
+                                    },
+                                    "id_kredit": {
+                                        "type": "string",
+                                        "example": "kredit_123"
+                                    },
+                                    "id_profil": {
+                                        "type": "string",
+                                        "example": "profil_123",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Jurnal created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jurnal"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/jurnal/{id}": {
+            "get": {
+                "tags": [
+                    "Jurnal"
+                ],
+                "summary": "Get a Jurnal by ID",
+                "description": "Display a Jurnal by ID.",
+                "operationId": "61df0d993bb02903f6ea1dd839da5ffe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jurnal"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Jurnal not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Jurnal"
+                ],
+                "summary": "Update a Jurnal by ID",
+                "description": "Update an existing Jurnal.",
+                "operationId": "4906c6028887cff6566bcf958352ae3a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_tipe_jurnal": {
+                                        "type": "string",
+                                        "example": "tipe_123"
+                                    },
+                                    "tanggal": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-01-01 10:00:00"
+                                    },
+                                    "nama_transaksi": {
+                                        "type": "string",
+                                        "example": "Purchase Supplies"
+                                    },
+                                    "nominal": {
+                                        "type": "integer",
+                                        "example": 1000
+                                    },
+                                    "id_debit": {
+                                        "type": "string",
+                                        "example": "debit_123"
+                                    },
+                                    "id_kredit": {
+                                        "type": "string",
+                                        "example": "kredit_123"
+                                    },
+                                    "id_profil": {
+                                        "type": "string",
+                                        "example": "profil_123",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Jurnal updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jurnal"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Jurnal not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Jurnal"
+                ],
+                "summary": "Delete a Jurnal by ID",
+                "description": "Delete a Jurnal.",
+                "operationId": "dd24019631c6ce5cb76ecebb8a1e0a90",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Jurnal deleted"
+                    },
+                    "404": {
+                        "description": "Jurnal not found"
+                    }
+                }
+            }
+        },
+        "/api/jurnal/data-akun/{id_data_akun}": {
+            "get": {
+                "tags": [
+                    "Jurnal"
+                ],
+                "summary": "Get Jurnal entries by id_data_akun",
+                "description": "Display a Jurnal by id_data_akun.",
+                "operationId": "caa4423767d9f542797255f9caf47fd5",
+                "parameters": [
+                    {
+                        "name": "id_data_akun",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Detail Data Jurnal!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id_jurnal": {
+                                                        "type": "string",
+                                                        "example": "6731d248a1fa2"
+                                                    },
+                                                    "tanggal": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-11-11"
+                                                    },
+                                                    "nama_transaksi": {
+                                                        "type": "string",
+                                                        "example": "Purchase Supplies"
+                                                    },
+                                                    "nominal": {
+                                                        "type": "integer",
+                                                        "example": 1000
+                                                    },
+                                                    "debit_account": {
+                                                        "properties": {
+                                                            "id_data_akun": {
+                                                                "type": "string",
+                                                                "example": "67318320ba219"
+                                                            },
+                                                            "kode": {
+                                                                "type": "integer",
+                                                                "example": 302
+                                                            },
+                                                            "nama": {
+                                                                "type": "string",
+                                                                "example": "Ping"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "kredit_account": {
+                                                        "properties": {
+                                                            "id_data_akun": {
+                                                                "type": "string",
+                                                                "example": "673183156e783"
+                                                            },
+                                                            "kode": {
+                                                                "type": "integer",
+                                                                "example": 202
+                                                            },
+                                                            "nama": {
+                                                                "type": "string",
+                                                                "example": "Coba"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-11-11T09:45:44.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-11-11T09:52:34.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Jurnal not found"
+                    }
+                }
+            }
+        },
+        "/api/jurnal/data-akun/{id_data_akun}/between-date": {
+            "get": {
+                "tags": [
+                    "Jurnal"
+                ],
+                "summary": "Get Jurnal entries by id_data_akun with optional date range",
+                "description": "Display a Jurnal by id_data_akun and optional date range.",
+                "operationId": "b053f353238f5b2533bb0dab893ad242",
+                "parameters": [
+                    {
+                        "name": "id_data_akun",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2024-01-01"
+                        }
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2024-12-31"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Detail Data Jurnal!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id_jurnal": {
+                                                        "type": "string",
+                                                        "example": "6731d248a1fa2"
+                                                    },
+                                                    "tanggal": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-11-11"
+                                                    },
+                                                    "nama_transaksi": {
+                                                        "type": "string",
+                                                        "example": "Purchase Supplies"
+                                                    },
+                                                    "nominal": {
+                                                        "type": "integer",
+                                                        "example": 1000
+                                                    },
+                                                    "debit_account": {
+                                                        "properties": {
+                                                            "id_data_akun": {
+                                                                "type": "string",
+                                                                "example": "67318320ba219"
+                                                            },
+                                                            "kode": {
+                                                                "type": "integer",
+                                                                "example": 302
+                                                            },
+                                                            "nama": {
+                                                                "type": "string",
+                                                                "example": "Ping"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "kredit_account": {
+                                                        "properties": {
+                                                            "id_data_akun": {
+                                                                "type": "string",
+                                                                "example": "673183156e783"
+                                                            },
+                                                            "kode": {
+                                                                "type": "integer",
+                                                                "example": 202
+                                                            },
+                                                            "nama": {
+                                                                "type": "string",
+                                                                "example": "Coba"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-11-11T09:45:44.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-11-11T09:52:34.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Jurnal not found"
+                    }
+                }
+            }
+        },
+        "/api/profil": {
+            "get": {
+                "tags": [
+                    "Profil"
+                ],
+                "summary": "Get list of Profil",
+                "description": "Display a listing of Profil.",
+                "operationId": "443cfc4a0263ea00b547094ea694b2de",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Profil"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Profil"
+                ],
+                "summary": "Create a new Profil",
+                "description": "Store a new Profil.",
+                "operationId": "4deb5a5dba5bf59b3d4965fe303be526",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "username": {
+                                        "type": "integer",
+                                        "example": "jhondoe"
+                                    },
+                                    "password": {
+                                        "description": "User password, minimum 8 characters",
+                                        "type": "string",
+                                        "format": "password"
+                                    },
+                                    "id_role": {
+                                        "type": "string",
+                                        "example": "role_123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Profil created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Profil"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/profil/{id}": {
+            "get": {
+                "tags": [
+                    "Profil"
+                ],
+                "summary": "Get a Profil by ID",
+                "description": "Display a Profil by ID.",
+                "operationId": "274e688502ca391d35a011a30c94643d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Profil"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Profil not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Profil"
+                ],
+                "summary": "Update a Profil by ID",
+                "description": "Update an existing Profil.",
+                "operationId": "14064df4f4eb7a597bfeac43b53603e4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Jane Doe"
+                                    },
+                                    "username": {
+                                        "type": "integer",
+                                        "example": "janedoe"
+                                    },
+                                    "password": {
+                                        "description": "User password, minimum 8 characters",
+                                        "type": "string",
+                                        "format": "password"
+                                    },
+                                    "id_role": {
+                                        "type": "string",
+                                        "example": "role_456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Profil updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Profil"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Profil not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Profil"
+                ],
+                "summary": "Delete a Profil by ID",
+                "description": "Delete a Profil.",
+                "operationId": "ac75740d469e8db025344ffbf045ef03",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Profil deleted"
+                    },
+                    "404": {
+                        "description": "Profil not found"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User login",
+                "description": "Authenticate user and return token",
+                "operationId": "a677d3288ec8adfa5dfb15b56f8079ab",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "user123"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login successful"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|abc123..."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id_profil": {
+                                                    "type": "string",
+                                                    "example": "id123"
+                                                },
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "user123"
+                                                },
+                                                "nama": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "id_role": {
+                                                    "type": "string",
+                                                    "example": "role123"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Login failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login failed, invalid credentials"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User logout",
+                "description": "Revoke user's token",
+                "operationId": "2216f76882e0e7725c4d58d9a7930ab9",
+                "responses": {
+                    "200": {
+                        "description": "Logged out successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/role": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "Get list of Roles",
+                "description": "Display a listing of Roles.",
+                "operationId": "a7549b0bc1566cc8e2cb8358f139a2ee",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "Create a new Role",
+                "description": "Store a new Role.",
+                "operationId": "65d75fe4655bd29ae5109c70ac4b9177",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "role": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Role created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Role"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/role/{id}": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "Get an Role by ID",
+                "description": "Display an Role by ID.",
+                "operationId": "29d45de75a2e172b3eaa96c31636c7a2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Role"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Role not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "Update an Role by ID",
+                "description": "Update an existing Role.",
+                "operationId": "e16874594ad6dbb6b797f393c52918ee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "role": {
+                                        "type": "string",
+                                        "example": "Jane Doe"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Role updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Role"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Role not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "Delete an Role by ID",
+                "description": "Delete an Role.",
+                "operationId": "f3699fda8b317a6dd66f30ddb275774f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Role deleted"
+                    },
+                    "404": {
+                        "description": "Role not found"
+                    }
+                }
+            }
+        },
+        "/api/sub_akun": {
+            "get": {
+                "tags": [
+                    "SubAkun"
+                ],
+                "summary": "Get list of SubAkun",
+                "description": "Display a listing of SubAkun.",
+                "operationId": "02855f78008af0670c4d9e3edcd70c64",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SubAkun"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SubAkun"
+                ],
+                "summary": "Create a new SubAkun",
+                "description": "Store a new SubAkun.",
+                "operationId": "3e0f28f3b9e6005146994742cfed1bc3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "id_akun": {
+                                        "type": "string",
+                                        "example": "akun_123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "SubAkun created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubAkun"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/sub_akun/{id}": {
+            "get": {
+                "tags": [
+                    "SubAkun"
+                ],
+                "summary": "Get a SubAkun by ID",
+                "description": "Display a SubAkun by ID.",
+                "operationId": "b62c27feec5af21315cb09f59670f7d1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubAkun"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "SubAkun not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SubAkun"
+                ],
+                "summary": "Update a SubAkun by ID",
+                "description": "Update an existing SubAkun.",
+                "operationId": "7c5461a670f63b6cc4605abb74f07ca9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Jane Doe"
+                                    },
+                                    "kode": {
+                                        "type": "integer",
+                                        "example": "123"
+                                    },
+                                    "id_akun": {
+                                        "type": "string",
+                                        "example": "akun_456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "SubAkun updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubAkun"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "SubAkun not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SubAkun"
+                ],
+                "summary": "Delete a SubAkun by ID",
+                "description": "Delete a SubAkun.",
+                "operationId": "7120ac0088cb476f94c2c7f6d2ac3657",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "SubAkun deleted"
+                    },
+                    "404": {
+                        "description": "SubAkun not found"
+                    }
+                }
+            }
+        },
+        "/api/tipe_jurnal": {
+            "get": {
+                "tags": [
+                    "TipeJurnal"
+                ],
+                "summary": "Get list of TipeJurnals",
+                "description": "Display a listing of TipeJurnals.",
+                "operationId": "f36b0f21a1c6879f8dc9bec66cbc2a4a",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TipeJurnal"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "TipeJurnal"
+                ],
+                "summary": "Create a new TipeJurnal",
+                "description": "Store a new TipeJurnal.",
+                "operationId": "049933b92834715b811c00b72e5be29c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "TipeJurnal created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TipeJurnal"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipe_jurnal/{id}": {
+            "get": {
+                "tags": [
+                    "TipeJurnal"
+                ],
+                "summary": "Get an TipeJurnal by ID",
+                "description": "Display an TipeJurnal by ID.",
+                "operationId": "99fb9a12168018958135867d822640b1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TipeJurnal"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "TipeJurnal not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "TipeJurnal"
+                ],
+                "summary": "Update an TipeJurnal by ID",
+                "description": "Update an existing TipeJurnal.",
+                "operationId": "61fb6402701cd5192a8f8dc4974f806b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama": {
+                                        "type": "string",
+                                        "example": "Jane Doe"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "TipeJurnal updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TipeJurnal"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "TipeJurnal not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "TipeJurnal"
+                ],
+                "summary": "Delete an TipeJurnal by ID",
+                "description": "Delete an TipeJurnal.",
+                "operationId": "735d6a4b98f49fa917812d7340b69532",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TipeJurnal deleted"
+                    },
+                    "404": {
+                        "description": "TipeJurnal not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Akun": {
+                "properties": {
+                    "id_akun": {
+                        "type": "string",
+                        "example": "unique_id_123"
+                    },
+                    "nama": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "kode": {
+                        "type": "integer",
+                        "example": 123
+                    }
+                },
+                "type": "object"
+            },
+            "DataAkun": {
+                "properties": {
+                    "id_data_akun": {
+                        "type": "string",
+                        "example": "sub_akun_123"
+                    },
+                    "id_sub_akun": {
+                        "type": "string",
+                        "example": "akun_123"
+                    },
+                    "kode": {
+                        "type": "integer",
+                        "example": 101
+                    },
+                    "nama": {
+                        "type": "string",
+                        "example": "John Doe"
+                    }
+                },
+                "type": "object"
+            },
+            "Jurnal": {
+                "properties": {
+                    "id_jurnal": {
+                        "type": "string",
+                        "example": "jurnal_123"
+                    },
+                    "id_tipe_jurnal": {
+                        "type": "string",
+                        "example": "tipe_123"
+                    },
+                    "tanggal": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01 10:00:00"
+                    },
+                    "nama_transaksi": {
+                        "type": "string",
+                        "example": "Purchase Supplies"
+                    },
+                    "nominal": {
+                        "type": "integer",
+                        "example": 1000
+                    },
+                    "id_debit": {
+                        "type": "string",
+                        "example": "debit_123"
+                    },
+                    "id_kredit": {
+                        "type": "string",
+                        "example": "kredit_123"
+                    },
+                    "id_profil": {
+                        "type": "string",
+                        "example": "profil_123",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Profil": {
+                "properties": {
+                    "id_profil": {
+                        "type": "string",
+                        "example": "profil_123"
+                    },
+                    "id_role": {
+                        "type": "string",
+                        "example": "role_123"
+                    },
+                    "kode": {
+                        "type": "integer",
+                        "example": 101
+                    },
+                    "nama": {
+                        "type": "string",
+                        "example": "John Doe"
+                    }
+                },
+                "type": "object"
+            },
+            "Role": {
+                "properties": {
+                    "id_role": {
+                        "type": "string",
+                        "example": "akun_123"
+                    },
+                    "role": {
+                        "type": "string",
+                        "example": "John Doe"
+                    }
+                },
+                "type": "object"
+            },
+            "SubAkun": {
+                "properties": {
+                    "id_sub_akun": {
+                        "type": "string",
+                        "example": "sub_akun_123"
+                    },
+                    "id_akun": {
+                        "type": "string",
+                        "example": "akun_123"
+                    },
+                    "kode": {
+                        "type": "integer",
+                        "example": 101
+                    },
+                    "nama": {
+                        "type": "string",
+                        "example": "John Doe"
+                    }
+                },
+                "type": "object"
+            },
+            "TipeJurnal": {
+                "properties": {
+                    "id_tipe": {
+                        "type": "string",
+                        "example": "akun_123"
+                    },
+                    "nama": {
+                        "type": "string",
+                        "example": "John Doe"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Akun",
+            "description": "Akun"
+        },
+        {
+            "name": "DataAkun",
+            "description": "DataAkun"
+        },
+        {
+            "name": "Jurnal",
+            "description": "Jurnal"
+        },
+        {
+            "name": "Profil",
+            "description": "Profil"
+        },
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Role",
+            "description": "Role"
+        },
+        {
+            "name": "SubAkun",
+            "description": "SubAkun"
+        },
+        {
+            "name": "TipeJurnal",
+            "description": "TipeJurnal"
+        }
+    ]
+}
