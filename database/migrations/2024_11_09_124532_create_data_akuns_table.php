@@ -18,10 +18,14 @@ return new class extends Migration
             $table->string('nama');
             $table->integer('debit')->default(0)->nullable();
             $table->integer('kredit')->default(0)->nullable();
+            $table->string('id_profil', 16);
             $table->timestamps();
 
             $table->foreign('id_sub_akun')
                 ->references('id_sub_akun')->on('tb_sub_akun')
+                ->onDelete('cascade');
+            $table->foreign('id_profil')
+                ->references('id_profil')->on('tb_profil')
                 ->onDelete('cascade');
         });
     }
@@ -33,6 +37,7 @@ return new class extends Migration
     {
         Schema::table('tb_data_akun', function (Blueprint $table) {
             $table->dropForeign(['id_sub_akun']);
+            $table->dropForeign(['id_profil']);
         });
 
         Schema::dropIfExists('tb_data_akun');

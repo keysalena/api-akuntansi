@@ -65,9 +65,9 @@ class ProfilController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             @OA\Property(property="nama", type="string", example="John Doe"),
-     *             @OA\Property(property="username", type="integer", example="jhondoe"),
+     *             @OA\Property(property="username", type="string", example="jhondoe"),
+     *             @OA\Property(property="email", type="string", example="jhondoe@id"),
      *             @OA\Property(property="password", type="string", format="password", description="User password, minimum 8 characters"),
-     *             @OA\Property(property="id_role", type="string", example="role_123")
      *         )
      *     ),
      *     @OA\Response(
@@ -81,9 +81,9 @@ class ProfilController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_role' => 'required',
             'nama' => 'required',
             'username' => 'required',
+            'email' => 'required',
             'password' => 'required|string|min:8',
         ]);
 
@@ -92,10 +92,11 @@ class ProfilController extends Controller
         }
 
         $profil = Profil::create([
-            'id_role' => $request->id_role,
+            'id_role' => '6751826ea73ba',
             'nama' => $request->nama,
+            'email' => $request->email,
             'username' => $request->username,
-            'password' => Hash::make($request->password), // Fixed line
+            'password' => Hash::make($request->password),
         ]);
 
         return new ProfilResource(true, 'Data Profil Berhasil Ditambahkan!', $profil);
@@ -143,11 +144,22 @@ class ProfilController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="nama", type="string", example="Jane Doe"),
-     *             @OA\Property(property="username", type="integer", example="janedoe"),
-     *             @OA\Property(property="password", type="string", format="password", description="User password, minimum 8 characters"),
-     *             @OA\Property(property="id_role", type="string", example="role_456")
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(property="nama", type="string", example="Jane Doe"),
+     *                 @OA\Property(property="username", type="string", example="janedoe"),
+     *                 @OA\Property(property="password", type="string", format="password", description="User password, minimum 8 characters"),
+     *                 @OA\Property(property="alamat", type="string", example="123 Example St"),
+     *                 @OA\Property(property="email", type="string", example="jane.doe@example.com"),
+     *                 @OA\Property(
+     *                     property="logo",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="Logo image file"
+     *                 )
+     *             )
      *         )
      *     ),
      *     @OA\Response(
@@ -158,14 +170,20 @@ class ProfilController extends Controller
      *     @OA\Response(response=404, description="Profil not found")
      * )
      */
+
+
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'id_role' => 'required',
-            'nama' => 'required',
-            'username' => 'required',
-            'password' => 'nullable',
+            'nama' => 'nullable|string',
+            'username' => 'nullable|string',
+            'password' => 'nullable|string',
+            'alamat' => 'nullable|string',
+            'email' => 'nullable|email',
+            'logo' => 'nullable',
         ]);
+
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
@@ -174,15 +192,27 @@ class ProfilController extends Controller
         $profil = Profil::find($id);
 
         $old_password = $profil->password;
-
         if ($request->password == null) {
             $profil->password = $old_password;
         } else {
             $profil->password = Hash::make($request->password);
         }
 
-        $profil->id_role = $request->id_role;
-        $profil->nama = $request->nama;
+        if ($request->hasFile('logo')) {
+            if ($profil->logo && file_exists(public_path('uploads/logos/' . $profil->logo))) {
+                unlink(public_path('uploads/logos/' . $profil->logo));
+            }
+
+            $file = $request->file('logo');
+            $logoName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/logos'), $logoName);
+            $profil->logo = $logoName;
+        }
+
+        $profil->nama = $request->nama ?? $profil->nama;
+        $profil->username = $request->username ?? $profil->username;
+        $profil->alamat = $request->alamat ?? $profil->alamat;
+        $profil->email = $request->email ?? $profil->email;
 
         $profil->save();
 
@@ -258,7 +288,9 @@ class ProfilController extends Controller
             'password' => 'required',
         ]);
 
-        $profil = Profil::where('username', $request->username)->first();
+        $profil = Profil::where('username', $request->username)
+            ->orWhere('email', $request->username)
+            ->first();
 
         if (!$profil || !Hash::check($request->password, $profil->password)) {
             return response()->json([
@@ -267,16 +299,12 @@ class ProfilController extends Controller
             ], 401);
         }
 
-        $token = $profil->createToken('authToken')->plainTextToken;
-
         return response()->json([
             'success' => true,
             'message' => 'Login successful',
-            'token' => $token,
-            'data' => $profil
+            'data' => $profil->load('role:id_role,role')->makeHidden(['password', 'created_at', 'updated_at']),
         ]);
     }
-
     /**
      * @OA\Post(
      *     path="/api/logout",

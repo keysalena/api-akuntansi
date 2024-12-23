@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Laravel\Sanctum\HasApiTokens;
 
 class Profil extends Model
@@ -15,14 +16,28 @@ class Profil extends Model
     protected $fillable = [
         'nama',
         'username',
+        'email',
+        'alamat',
         'password',
         'id_role',
+        'logo'
     ];
 
     protected $primaryKey = 'id_profil';
     public $incrementing = false;
     protected $keyType = 'string';
 
+    /**
+     * logo
+     *
+     * @return Attribute
+     */
+    protected function logo(): Attribute
+    {
+        return Attribute::make(
+            get: fn($logo) => url('/storage/logos/' . $logo),
+        );
+    }
     protected static function booted()
     {
         static::creating(function ($profil) {

@@ -108,7 +108,76 @@ class JurnalController extends Controller
         $jurnal = Jurnal::create($request->all());
         return new JurnalResource(true, 'Data Jurnal Berhasil Ditambahkan!', $jurnal);
     }
+    /**
+     * Store a new Jurnal.
+     *
+     * @OA\Post(
+     *     path="/api/banyakjurnal",
+     *     tags={"Jurnal"},
+     *     summary="Create a new Jurnal",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="id_tipe_jurnal", type="string", example="tipe_123"),
+     *             @OA\Property(property="tanggal", type="string", format="date-time", example="2024-01-01 10:00:00"),
+     *             @OA\Property(property="nama_transaksi", type="string", example="Purchase Supplies"),
+     *             @OA\Property(property="nominal", type="integer", example=1000),
+     *             @OA\Property(property="id_debit", type="string", example="debit_123"),
+     *             @OA\Property(property="id_kredit", type="string", example="kredit_123"),
+     *             @OA\Property(property="id_profil", type="string", nullable=true, example="profil_123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Jurnal created",
+     *         @OA\JsonContent(ref="#/components/schemas/Jurnal")
+     *     ),
+     *     @OA\Response(response=422, description="Validation error")
+     * )
+     */
+    public function manyStore(Request $request)
+    {
+        if (!is_array($request->all())) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid data format, expected an array of objects.'
+            ], 422);
+        }
 
+        $data = $request->all();
+        $errors = [];
+        $createdJournals = [];
+
+        foreach ($data as $key => $item) {
+            $validator = Validator::make($item, [
+                'id_tipe_jurnal' => 'required|string',
+                'tanggal' => 'required|date',
+                'nama_transaksi' => 'required|string',
+                'nominal' => 'required|integer',
+                'id_debit' => 'required|string',
+                'id_kredit' => 'required|string',
+                'id_profil' => 'nullable|string',
+            ]);
+
+            if ($validator->fails()) {
+                $errors[$key] = $validator->errors();
+                continue;
+            }
+
+            $createdJournals[] = Jurnal::create($item);
+        }
+
+        if (!empty($errors)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Some records failed validation.',
+                'errors' => $errors,
+                'created_journals' => $createdJournals,
+            ], 422);
+        }
+
+        return new JurnalResource(true, 'Data Jurnal Berhasil Ditambahkan!', $createdJournals);
+    }
     /**
      * Display a Jurnal by ID.
      *
@@ -203,6 +272,110 @@ class JurnalController extends Controller
         return new JurnalResource(true, 'Detail Data Jurnal!', $jurnal);
     }
     /**
+     * Display a Jurnal by id_profil with optional month and year filters.
+     *
+     * @OA\Get(
+     *     path="/api/jurnal/profil/{id_profil}",
+     *     tags={"Jurnal"},
+     *     summary="Get Jurnal entries by id_profil with optional filters",
+     *     @OA\Parameter(
+     *         name="id_profil",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string"),
+     *         description="The ID of the Profil"
+     *     ),
+     *     @OA\Parameter(
+     *         name="bulan",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="integer", minimum=1, maximum=12),
+     *         description="Filter by month (1-12)"
+     *     ),
+     *     @OA\Parameter(
+     *         name="tahun",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="integer", minimum=1900, maximum=2100),
+     *         description="Filter by year (e.g., 2024)"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Detail Data Jurnal!"),
+     *             @OA\Property(property="data", type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="id_jurnal", type="string", example="6731d248a1fa2"),
+     *                     @OA\Property(property="tanggal", type="string", format="date", example="2024-11-11"),
+     *                     @OA\Property(property="nama_transaksi", type="string", example="Purchase Supplies"),
+     *                     @OA\Property(property="nominal", type="integer", example=1000),
+     *                     @OA\Property(property="debit_account", type="object",
+     *                         @OA\Property(property="id_data_akun", type="string", example="67318320ba219"),
+     *                         @OA\Property(property="kode", type="integer", example=302),
+     *                         @OA\Property(property="nama", type="string", example="Ping")
+     *                     ),
+     *                     @OA\Property(property="kredit_account", type="object",
+     *                         @OA\Property(property="id_data_akun", type="string", example="673183156e783"),
+     *                         @OA\Property(property="kode", type="integer", example=202),
+     *                         @OA\Property(property="nama", type="string", example="Coba")
+     *                     ),
+     *                     @OA\Property(property="created_at", type="string", format="date-time", example="2024-11-11T09:45:44.000000Z"),
+     *                     @OA\Property(property="updated_at", type="string", format="date-time", example="2024-11-11T09:52:34.000000Z")
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=404, description="Jurnal not found"),
+     *     @OA\Response(response=422, description="Invalid input")
+     * )
+     */
+    public function showIdProfil($id_profil, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'bulan' => 'nullable|integer|min:1|max:12',
+            'tahun' => 'nullable|integer|digits:4'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+
+        $jurnalQuery = Jurnal::with([
+            'debitAccount:id_data_akun,kode,nama',
+            'kreditAccount:id_data_akun,kode,nama',
+            'tipe_jurnal:id_tipe_jurnal,nama'
+        ])->where('id_profil', $id_profil);
+
+        if ($bulan) {
+            $jurnalQuery->whereMonth('tanggal', $bulan);
+        }
+        if ($tahun) {
+            $jurnalQuery->whereYear('tanggal', $tahun);
+        }
+
+        $jurnal = $jurnalQuery->get();
+
+        if ($jurnal->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Jurnal not found for the given criteria'
+            ], 404);
+        }
+
+        return new JurnalResource(true, 'Detail Data Jurnal!', $jurnal);
+    }
+
+    /**
      * Display a Jurnal by id_data_akun and optional date range.
      *
      * @OA\Get(
@@ -262,10 +435,19 @@ class JurnalController extends Controller
      */
     public function showByIdAndDate($id_data_akun, Request $request)
     {
+        $request->validate([
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+            'tahun' => 'nullable|integer',
+            'bulan' => 'nullable|integer|min:1|max:12',
+        ]);
+
         $startDate = $request->query('start_date');
         $endDate = $request->query('end_date');
+        $tahun = $request->query('tahun');
+        $bulan = $request->query('bulan');
 
-        $jurnal = Jurnal::with([
+        $jurnalQuery = Jurnal::with([
             'debitAccount:id_data_akun,kode,nama',
             'kreditAccount:id_data_akun,kode,nama',
             'tipe_jurnal:id_tipe_jurnal,nama'
@@ -280,10 +462,16 @@ class JurnalController extends Controller
             });
 
         if ($startDate && $endDate) {
-            $jurnal->whereBetween('tanggal', [$startDate, $endDate]);
+            $jurnalQuery->whereBetween('tanggal', [$startDate, $endDate]);
+        }
+        if ($tahun) {
+            $jurnalQuery->whereYear('tanggal', $tahun);
+        }
+        if ($bulan) {
+            $jurnalQuery->whereMonth('tanggal', $bulan);
         }
 
-        $jurnal = $jurnal->get();
+        $jurnal = $jurnalQuery->get();
 
         if ($jurnal->isEmpty()) {
             return response()->json([
@@ -317,7 +505,6 @@ class JurnalController extends Controller
      *             @OA\Property(property="nominal", type="integer", example=1000),
      *             @OA\Property(property="id_debit", type="string", example="debit_123"),
      *             @OA\Property(property="id_kredit", type="string", example="kredit_123"),
-     *             @OA\Property(property="id_profil", type="string", nullable=true, example="profil_123")
      *         )
      *     ),
      *     @OA\Response(
@@ -337,7 +524,6 @@ class JurnalController extends Controller
             'nominal' => 'required|integer',
             'id_debit' => 'required|string',
             'id_kredit' => 'required|string',
-            'id_profil' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
@@ -356,7 +542,6 @@ class JurnalController extends Controller
             'nominal' => $request->nominal,
             'id_debit' => $request->id_debit,
             'id_kredit' => $request->id_kredit,
-            'id_profil' => $request->id_profil,
         ]);
 
         return new JurnalResource(true, 'Data Jurnal Berhasil Diubah!', $jurnal);

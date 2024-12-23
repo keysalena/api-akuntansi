@@ -55,6 +55,44 @@ class DataAkunController extends Controller
 
         return new DataAkunResource(true, 'List Data DataAkuns', $data_akun);
     }
+    /**
+     * Display a listing of DataAkun by id_profil.
+     *
+     * @OA\Get(
+     *     path="/api/data_akun/profil/{id_profil}",
+     *     tags={"DataAkun"},
+     *     summary="Get a DataAkun by id_profil",
+     *     @OA\Parameter(
+     *         name="id_profil",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(ref="#/components/schemas/DataAkun")
+     *     ),
+     *     @OA\Response(response=404, description="DataAkun not found")
+     * )
+     */
+    public function showIdProfil($id_profil)
+    {
+        $dataAkun = DataAkun::with(['subAkun.akun'])
+            ->where('id_profil', $id_profil)
+            ->orderBy('kode')
+            ->get();
+
+
+        if ($dataAkun->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'DataAkun not found'
+            ], 404);
+        }
+
+        return new DataAkunResource(true, 'Detail Data DataAkun!', $dataAkun);
+    }
 
     /**
      * Store a new DataAkun.
@@ -85,6 +123,7 @@ class DataAkunController extends Controller
         $validator = Validator::make($request->all(), [
             'id_sub_akun' => 'required',
             'nama' => 'required',
+            'id_profil' => 'required',
             'debit' => 'nullable',
             'kredit' => 'nullable',
         ]);
@@ -95,19 +134,22 @@ class DataAkunController extends Controller
 
         $sub_akun = SubAkun::find($request->id_sub_akun);
         $base_kode = $sub_akun ? $sub_akun->kode : 0;
-        $count = DataAkun::where('id_sub_akun', $request->id_sub_akun)->count();
+        $count = DataAkun::where('id_sub_akun', $request->id_sub_akun)
+            ->where('id_profil', $request->id_profil)
+            ->count();
 
         if ($count == 0) {
             $new_kode = $base_kode + 1;
         } elseif ($count == 1) {
             $new_kode = 2 + $base_kode;
         } else {
-            $new_kode = $count + 1 + $base_kode;
+            $new_kode = $count - 1 + $base_kode;
         }
 
         $data_akun = DataAkun::create([
             'id_sub_akun' => $request->id_sub_akun,
             'nama' => $request->nama,
+            'id_profil' => $request->id_profil,
             'debit' => $request->debit,
             'kredit' => $request->kredit,
             'kode' => $new_kode,
@@ -179,6 +221,7 @@ class DataAkunController extends Controller
             'id_sub_akun' => 'required',
             'nama' => 'required',
             'debit' => 'nullable',
+            'id_profil' => 'nullable',
             'kredit' => 'nullable',
         ]);
 
@@ -193,7 +236,7 @@ class DataAkunController extends Controller
         if ($request->id_sub_akun != $old_id_sub_akun) {
             $sub_akun = SubAkun::find($request->id_sub_akun);
             $base_kode = $sub_akun ? $sub_akun->kode : 0;
-            $count = DataAkun::where('id_sub_akun', $request->id_sub_akun)->count();
+            $count = DataAkun::where('id_sub_akun', $request->id_sub_akun)->where('id_profil', $request->id_profil)->count();
 
             if ($count == 0) {
                 $new_kode = $base_kode + 1;

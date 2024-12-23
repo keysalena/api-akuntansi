@@ -261,6 +261,41 @@
                 }
             }
         },
+        "/api/data_akun/profil/{id_profil}": {
+            "get": {
+                "tags": [
+                    "DataAkun"
+                ],
+                "summary": "Get a DataAkun by id_profil",
+                "description": "Display a listing of DataAkun by id_profil.",
+                "operationId": "4440b9f8aac493b840fb3710ec6fd07a",
+                "parameters": [
+                    {
+                        "name": "id_profil",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataAkun"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "DataAkun not found"
+                    }
+                }
+            }
+        },
         "/api/data_akun/{id}": {
             "get": {
                 "tags": [
@@ -414,6 +449,73 @@
                 "summary": "Create a new Jurnal",
                 "description": "Store a new Jurnal.",
                 "operationId": "b459aa40879fbb1c3a660b2ea76eb440",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_tipe_jurnal": {
+                                        "type": "string",
+                                        "example": "tipe_123"
+                                    },
+                                    "tanggal": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-01-01 10:00:00"
+                                    },
+                                    "nama_transaksi": {
+                                        "type": "string",
+                                        "example": "Purchase Supplies"
+                                    },
+                                    "nominal": {
+                                        "type": "integer",
+                                        "example": 1000
+                                    },
+                                    "id_debit": {
+                                        "type": "string",
+                                        "example": "debit_123"
+                                    },
+                                    "id_kredit": {
+                                        "type": "string",
+                                        "example": "kredit_123"
+                                    },
+                                    "id_profil": {
+                                        "type": "string",
+                                        "example": "profil_123",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Jurnal created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Jurnal"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/banyakjurnal": {
+            "post": {
+                "tags": [
+                    "Jurnal"
+                ],
+                "summary": "Create a new Jurnal",
+                "description": "Store a new Jurnal.",
+                "operationId": "82a4828edcec8f202a13a94efaa11476",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -723,6 +825,146 @@
                 }
             }
         },
+        "/api/jurnal/profil/{id_profil}": {
+            "get": {
+                "tags": [
+                    "Jurnal"
+                ],
+                "summary": "Get Jurnal entries by id_profil with optional filters",
+                "description": "Display a Jurnal by id_profil with optional month and year filters.",
+                "operationId": "e521f62937496238f958fb00d5503603",
+                "parameters": [
+                    {
+                        "name": "id_profil",
+                        "in": "path",
+                        "description": "The ID of the Profil",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "bulan",
+                        "in": "query",
+                        "description": "Filter by month (1-12)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 12,
+                            "minimum": 1
+                        }
+                    },
+                    {
+                        "name": "tahun",
+                        "in": "query",
+                        "description": "Filter by year (e.g., 2024)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 2100,
+                            "minimum": 1900
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Detail Data Jurnal!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id_jurnal": {
+                                                        "type": "string",
+                                                        "example": "6731d248a1fa2"
+                                                    },
+                                                    "tanggal": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-11-11"
+                                                    },
+                                                    "nama_transaksi": {
+                                                        "type": "string",
+                                                        "example": "Purchase Supplies"
+                                                    },
+                                                    "nominal": {
+                                                        "type": "integer",
+                                                        "example": 1000
+                                                    },
+                                                    "debit_account": {
+                                                        "properties": {
+                                                            "id_data_akun": {
+                                                                "type": "string",
+                                                                "example": "67318320ba219"
+                                                            },
+                                                            "kode": {
+                                                                "type": "integer",
+                                                                "example": 302
+                                                            },
+                                                            "nama": {
+                                                                "type": "string",
+                                                                "example": "Ping"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "kredit_account": {
+                                                        "properties": {
+                                                            "id_data_akun": {
+                                                                "type": "string",
+                                                                "example": "673183156e783"
+                                                            },
+                                                            "kode": {
+                                                                "type": "integer",
+                                                                "example": 202
+                                                            },
+                                                            "nama": {
+                                                                "type": "string",
+                                                                "example": "Coba"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-11-11T09:45:44.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-11-11T09:52:34.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Jurnal not found"
+                    },
+                    "422": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
         "/api/jurnal/data-akun/{id_data_akun}/between-date": {
             "get": {
                 "tags": [
@@ -899,17 +1141,17 @@
                                         "example": "John Doe"
                                     },
                                     "username": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "example": "jhondoe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "jhondoe@id"
                                     },
                                     "password": {
                                         "description": "User password, minimum 8 characters",
                                         "type": "string",
                                         "format": "password"
-                                    },
-                                    "id_role": {
-                                        "type": "string",
-                                        "example": "role_123"
                                     }
                                 },
                                 "type": "object"
@@ -988,7 +1230,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
                                     "nama": {
@@ -996,7 +1238,7 @@
                                         "example": "Jane Doe"
                                     },
                                     "username": {
-                                        "type": "integer",
+                                        "type": "string",
                                         "example": "janedoe"
                                     },
                                     "password": {
@@ -1004,9 +1246,18 @@
                                         "type": "string",
                                         "format": "password"
                                     },
-                                    "id_role": {
+                                    "alamat": {
                                         "type": "string",
-                                        "example": "role_456"
+                                        "example": "123 Example St"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "jane.doe@example.com"
+                                    },
+                                    "logo": {
+                                        "description": "Logo image file",
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"

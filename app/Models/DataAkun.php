@@ -15,6 +15,7 @@ class DataAkun extends Model
         'nama',
         'kode',
         'id_sub_akun',
+        'id_profil',
         'debit',
         'kredit',
     ];
